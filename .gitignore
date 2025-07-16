@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+
+
+# Virtualenv / venv
+.env
+.venv/
+venv/
+ENV/
+env/
+*.env
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+.profile_default/
+.ipython/
+
+# Cache
+.cache/
+*.sqlite3
+*.db
+*.sqlite
+*.pkl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports, dumps, data
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.png
+*.jpg
+*.jpeg
+*.pdf
+
+# __tests__/ artifacts
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+.cache
+.noseids
+.pytest_cache/
+.tox/
