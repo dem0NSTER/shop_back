@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 
 from app.crud import user_crud as crud
-from app.schemas.user_schemas import CreateUser, User
+from app.schemas.user_schemas import CreateUser, User, UserUpdate
 
 
 async def get_users(session: AsyncSession) -> list[User]:
@@ -32,3 +32,20 @@ async def create_user(
         session=session,
     )
     return user
+
+
+async def update_product(
+    user_id: int,
+    user_updated: UserUpdate,
+    session: AsyncSession,
+) -> User:
+    user = await get_user_by_id(
+        session=session,
+        user_id=user_id,
+    )
+    updated_user = await crud.update_user(
+        session=session,
+        user=user,
+        user_updated=user_updated,
+    )
+    return updated_user

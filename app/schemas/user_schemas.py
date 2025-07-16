@@ -12,3 +12,7 @@ class CreateUser(BaseUser):
 
 class User(BaseUser):
     id: int
+
+
+class UserUpdate(BaseUser):
+    pass

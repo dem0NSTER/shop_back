@@ -1,5 +1,5 @@
 from app.core.db_settings import db_settings
-from app.schemas.user_schemas import CreateUser, User
+from app.schemas.user_schemas import CreateUser, User, UserUpdate
 
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -36,4 +36,15 @@ async def create_user(
     return await service.create_user(
         user_in=user_in,
         session=session,
+    )
+
+
+@router.put("/{user_id}", response_model=User)
+async def update_user(
+    user_id: int,
+    user_updated: UserUpdate,
+    session: AsyncSession = Depends(db_settings.session_dependency),
+) -> User:
+    return await service.update_product(
+        user_id=user_id, user_updated=user_updated, session=session
     )
