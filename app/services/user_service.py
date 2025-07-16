@@ -49,3 +49,18 @@ async def update_product(
         user_updated=user_updated,
     )
     return updated_user
+
+
+async def delete_user(
+    user_id: int,
+    session: AsyncSession,
+) -> None:
+    user = await get_user_by_id(
+        session=session,
+        user_id=user_id,
+    )
+
+    return await crud.delete_user(
+        user_in=user,
+        session=session,
+    )

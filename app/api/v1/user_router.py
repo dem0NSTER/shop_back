@@ -48,3 +48,16 @@ async def update_user(
     return await service.update_product(
         user_id=user_id, user_updated=user_updated, session=session
     )
+
+
+@router.delete(
+    "/{user_id}", response_model=None, status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_user(
+    user_id: int,
+    session: AsyncSession = Depends(db_settings.session_dependency),
+) -> None:
+    return await service.delete_user(
+        user_id=user_id,
+        session=session,
+    )
