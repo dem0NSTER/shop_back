@@ -14,7 +14,8 @@ dependencies = [
     "sqlalchemy[asyncaio] (>=2.0.41,<3.0.0)",
     "alembic (>=1.16.4,<2.0.0)",
     "asyncpg (>=0.30.0,<0.31.0)",
-    "greenlet (>=3.2.3,<4.0.0)"
+    "greenlet (>=3.2.3,<4.0.0)",
+    "pydantic[email] (>=2.11.7,<3.0.0)"
 ]
 
 
