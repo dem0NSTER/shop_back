@@ -1,7 +1,7 @@
 from app.core.db_settings import db_settings
-from app.schemas.user_schemas import User
+from app.schemas.user_schemas import CreateUser, User
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.services import user_service as service
 
@@ -24,5 +24,16 @@ async def get_user_by_id(
 ) -> User:
     return await service.get_user_by_id(
         user_id=user_id,
+        session=session,
+    )
+
+
+@router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
+async def create_user(
+    user_in: CreateUser,
+    session: AsyncSession = Depends(db_settings.session_dependency),
+) -> User:
+    return await service.create_user(
+        user_in=user_in,
         session=session,
     )

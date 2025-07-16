@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException, status
 
 from app.crud import user_crud as crud
-from app.schemas.user_schemas import User
+from app.schemas.user_schemas import CreateUser, User
 
 
 async def get_users(session: AsyncSession) -> list[User]:
@@ -20,4 +20,15 @@ async def get_user_by_id(session: AsyncSession, user_id: int) -> User:
             status_code=status.HTTP_404_NOT_FOUND,
             detail="user not found",
         )
+    return user
+
+
+async def create_user(
+    user_in: CreateUser,
+    session: AsyncSession,
+) -> User:
+    user = await crud.create_user(
+        user_in=user_in,
+        session=session,
+    )
     return user

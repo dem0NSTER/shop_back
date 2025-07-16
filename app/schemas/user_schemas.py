@@ -6,5 +6,9 @@ class BaseUser(BaseModel):
     email: EmailStr
 
 
+class CreateUser(BaseUser):
+    pass
+
+
 class User(BaseUser):
     id: int
