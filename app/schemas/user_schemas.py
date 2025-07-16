@@ -1,0 +1,10 @@
+from pydantic import BaseModel, Field, EmailStr
+
+
+class BaseUser(BaseModel):
+    username: str = Field(max_length=32)
+    email: EmailStr
+
+
+class User(BaseUser):
+    id: int
