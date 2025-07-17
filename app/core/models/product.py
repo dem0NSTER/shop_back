@@ -11,5 +11,6 @@ class Product(Base):
         Text,
         server_default="",
         default="",
+        nullable=True,
     )
     price: Mapped[int]
