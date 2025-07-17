@@ -15,3 +15,7 @@ class Product(ProductBase):
 
 class ProductCreate(ProductBase):
     pass
+
+
+class ProductUpdate(ProductBase):
+    pass
