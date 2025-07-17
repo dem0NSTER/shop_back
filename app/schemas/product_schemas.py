@@ -1,3 +1,5 @@
+from multiprocessing.managers import BaseProxy
+
 from pydantic import BaseModel, Field
 
 
@@ -9,3 +11,7 @@ class ProductBase(BaseModel):
 
 class Product(ProductBase):
     id: int
+
+
+class ProductCreate(ProductBase):
+    pass
