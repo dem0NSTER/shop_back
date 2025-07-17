@@ -14,3 +14,11 @@ async def get_products(
     session: AsyncSession = Depends(db_settings.session_dependency),
 ) -> list[Product]:
     return await service.get_products(session=session)
+
+
+@router.get("/{product_id}", response_model=Product)
+async def get_product_by_id(
+    product_id: int,
+    session: AsyncSession = Depends(db_settings.session_dependency),
+) -> Product:
+    return await service.get_product_by_id(session=session, product_id=product_id)
