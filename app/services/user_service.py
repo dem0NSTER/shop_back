@@ -35,32 +35,23 @@ async def create_user(
 
 
 async def update_product(
-    user_id: int,
+    user_in: User,
     user_updated: UserUpdate,
     session: AsyncSession,
 ) -> User:
-    user = await get_user_by_id(
-        session=session,
-        user_id=user_id,
-    )
     updated_user = await crud.update_user(
         session=session,
-        user=user,
+        user=user_in,
         user_updated=user_updated,
     )
     return updated_user
 
 
 async def delete_user(
-    user_id: int,
+    user_in: User,
     session: AsyncSession,
 ) -> None:
-    user = await get_user_by_id(
-        session=session,
-        user_id=user_id,
-    )
-
     return await crud.delete_user(
-        user_in=user,
+        user_in=user_in,
         session=session,
     )

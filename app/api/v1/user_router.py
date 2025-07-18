@@ -39,12 +39,12 @@ async def create_user(
 
 @router.put("/{user_id}", response_model=User)
 async def update_user(
-    user_id: int,
     user_updated: UserUpdate,
+    user_in: User = Depends(dependencies.user_by_id),
     session: AsyncSession = Depends(db_settings.session_dependency),
 ) -> User:
     return await service.update_product(
-        user_id=user_id, user_updated=user_updated, session=session
+        user_in=user_in, user_updated=user_updated, session=session
     )
 
 
@@ -52,10 +52,10 @@ async def update_user(
     "/{user_id}", response_model=None, status_code=status.HTTP_204_NO_CONTENT
 )
 async def delete_user(
-    user_id: int,
+    user_in: User = Depends(dependencies.user_by_id),
     session: AsyncSession = Depends(db_settings.session_dependency),
 ) -> None:
     return await service.delete_user(
-        user_id=user_id,
+        user_in=user_in,
         session=session,
     )
