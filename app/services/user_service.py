@@ -10,19 +10,6 @@ async def get_users(session: AsyncSession) -> list[User]:
     return users
 
 
-async def get_user_by_id(session: AsyncSession, user_id: int) -> User:
-    user = await crud.get_user_by_id(
-        session=session,
-        user_id=user_id,
-    )
-    if user is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="user not found",
-        )
-    return user
-
-
 async def create_user(
     user_in: CreateUser,
     session: AsyncSession,
