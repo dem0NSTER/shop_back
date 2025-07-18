@@ -4,8 +4,10 @@ from fastapi import Depends, HTTPException, status, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.db_settings import db_settings
+from app.schemas.product_schemas import Product
 from app.schemas.user_schemas import User
 from app.crud import user_crud
+from app.crud import product_crud
 
 
 async def user_by_id(
@@ -21,3 +23,18 @@ async def user_by_id(
             status_code=status.HTTP_404_NOT_FOUND, detail="user not found"
         )
     return user
+
+
+async def product_by_id(
+    product_id: Annotated[int, Path(gt=0)],
+    session: AsyncSession = Depends(db_settings.session_dependency),
+) -> Product:
+    product = await product_crud.get_product_by_id(
+        session=session,
+        product_id=product_id,
+    )
+    if product is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="product not found"
+        )
+    return product
