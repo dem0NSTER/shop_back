@@ -39,26 +39,17 @@ async def create_product(
 async def update_product(
     session: AsyncSession,
     updated_product: ProductUpdate,
-    product_id: int,
+    product_in: Product,
 ) -> Product:
-    product = await get_product_by_id(
-        session=session,
-        product_id=product_id,
-    )
-
     return await crud.update_product(
         updated_product=updated_product,
-        product=product,
+        product=product_in,
         session=session,
     )
 
 
-async def delete_product(product_id: int, session: AsyncSession) -> None:
-    product = await get_product_by_id(
-        session=session,
-        product_id=product_id,
-    )
+async def delete_product(product_in: Product, session: AsyncSession) -> None:
     await crud.delete_product(
-        product_deleted=product,
+        product_deleted=product_in,
         session=session,
     )
