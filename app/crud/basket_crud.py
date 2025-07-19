@@ -1,5 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, Result, delete
+from sqlalchemy.exc import IntegrityError
+
+from fastapi import HTTPException, status
 
 from app.core.models.basket import Basket
 from app.schemas.basket_schemas import CreateBasket
@@ -34,10 +37,16 @@ async def create_basket(
     basket_in: CreateBasket,
     session: AsyncSession,
 ) -> Basket:
-    basket = Basket(**basket_in.model_dump())
-    session.add(basket)
-    await session.commit()
-    return basket
+    try:
+        basket = Basket(**basket_in.model_dump())
+        session.add(basket)
+        await session.commit()
+        return basket
+    except IntegrityError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="this user already has basket",
+        )
 
 
 async def delete_basket(
