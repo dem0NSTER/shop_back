@@ -6,7 +6,7 @@ from app.schemas.user_schemas import CreateUser, UserUpdate
 
 
 async def get_users(session: AsyncSession) -> list[User]:
-    stmt = select(User)
+    stmt = select(User).limit(5)
     result: Result = await session.execute(stmt)
     res = result.scalars().all()
     return list(res)

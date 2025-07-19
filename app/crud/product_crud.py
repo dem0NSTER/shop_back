@@ -5,7 +5,7 @@ from app.schemas.product_schemas import ProductCreate, ProductUpdate
 
 
 async def get_products(session: AsyncSession) -> list[Product]:
-    stmt = select(Product)
+    stmt = select(Product).limit(5)
     result: Result = await session.execute(stmt)
     products = result.scalars().all()
     return list(products)
