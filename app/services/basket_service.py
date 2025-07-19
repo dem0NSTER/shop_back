@@ -5,7 +5,13 @@ from fastapi import Depends
 from app.crud import basket_crud as crud
 from app.schemas.basket_schemas import Basket, CreateBasket
 from app.dependencies import validate_user
-from app.core.db_settings import db_settings
+
+
+async def get_baskets(
+    session: AsyncSession,
+) -> list[Basket]:
+    baskets = await crud.get_baskets(session=session)
+    return baskets
 
 
 async def create_basket(

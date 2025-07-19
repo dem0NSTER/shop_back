@@ -5,6 +5,15 @@ from app.core.models.basket import Basket
 from app.schemas.basket_schemas import CreateBasket
 
 
+async def get_baskets(
+    session: AsyncSession,
+) -> list[Basket]:
+    stmt = select(Basket).limit(5)
+    result: Result = await session.execute(stmt)
+    baskets = result.scalars().all()
+    return list(baskets)
+
+
 async def get_basket_by_id(basket_id: int, session: AsyncSession) -> Basket | None:
     return await session.get(Basket, basket_id)
 

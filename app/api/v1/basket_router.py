@@ -11,6 +11,13 @@ from app import dependencies
 router = APIRouter(prefix="/basket")
 
 
+@router.get("/", response_model=list[Basket])
+async def get_baskets(
+    session: AsyncSession = Depends(db_settings.session_dependency),
+) -> list[Basket]:
+    return await service.get_baskets(session=session)
+
+
 @router.get("/{basket_id}", response_model=Basket)
 async def get_basket_by_id(
     basket: Basket = Depends(dependencies.basket_by_id),
