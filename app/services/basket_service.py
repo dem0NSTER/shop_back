@@ -28,3 +28,17 @@ async def delete_basket_by_basket_id(
     session: AsyncSession,
 ) -> None:
     await crud.delete_basket(basket=basket, session=session)
+
+
+async def delete_basket_by_user_id(
+    user_id: int,
+    session: AsyncSession,
+) -> None:
+    await validate_user(
+        user_id=user_id,
+        session=session,
+    )
+    await crud.get_basket_by_user_id(
+        user_id=user_id,
+        session=session,
+    )

@@ -45,3 +45,16 @@ async def delete_basket_by_basket_id(
     session: AsyncSession = Depends(db_settings.session_dependency),
 ) -> None:
     await service.delete_basket_by_basket_id(basket=basket, session=session)
+
+
+@router.delete(
+    "/user/{user_id}", response_model=None, status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_basket_by_user_id(
+    user_id: int,
+    session: AsyncSession = Depends(db_settings.session_dependency),
+) -> None:
+    await service.delete_basket_by_user_id(
+        user_id=user_id,
+        session=session,
+    )

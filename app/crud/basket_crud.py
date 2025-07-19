@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, Result
+from sqlalchemy import select, Result, delete
 
 from app.core.models.basket import Basket
 from app.schemas.basket_schemas import CreateBasket
@@ -36,4 +36,13 @@ async def delete_basket(
     session: AsyncSession,
 ) -> None:
     await session.delete(basket)
+    await session.commit()
+
+
+async def delete_basket_by_user_id(
+    user_id: int,
+    session: AsyncSession,
+) -> None:
+    stmt = delete(Basket).where(Basket.user_id == user_id)
+    await session.execute(stmt)
     await session.commit()
